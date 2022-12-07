@@ -8,7 +8,8 @@ export const Home = () => {
 
   return (
     <>
-      <h1>Welcome! Enter your name or just click next</h1>
+      <h1>Welcome!</h1>
+      <p>Enter your name or just click next</p>
       <NameInput />
       <button onClick={nextPage}>Next</button>
     </>

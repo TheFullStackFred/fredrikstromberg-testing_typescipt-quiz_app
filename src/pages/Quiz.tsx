@@ -29,11 +29,11 @@ export const Quiz = () => {
 
   console.log(questions)
 
-  const startGame = async () => {
+  const startQuiz = async () => {
     setLoading(true)
     setGameOver(false)
 
-    const newQuestions = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.Easy)
+    const newQuestions = await fetchQuestions('history', Difficulty.Easy)
 
     setQuestions(newQuestions)
     setScore(0)
@@ -62,30 +62,28 @@ export const Quiz = () => {
   }
 
   const nextQuestion = () => {
-    const nextQuestion = number + 1
+    setNumber((prev) => prev + 1)
 
-    if (nextQuestion === TOTAL_QUESTIONS) {
+    if (number === TOTAL_QUESTIONS) {
       setGameOver(true)
     } else {
-      setNumber(nextQuestion)
+      setNumber((prev) => prev)
     }
   }
 
   return (
-    <div className='App'>
+    <div>
       <h1>REACT QUIZ</h1>
-      <h1>{userName}</h1>
+      <h1>Welcome {userName}</h1>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-        <button className='start' onClick={startGame}>
-          Start Quiz
-        </button>
+        <button onClick={startQuiz}>Start Quiz</button>
       ) : null}
 
-      {!gameOver ? <p className='score'>Score:{score}</p> : null}
+      {!gameOver ? <p>Score: {score}</p> : null}
       {loading && <p>Loading...</p>}
       {!loading && !gameOver && (
         <QuestionCard
-          questionNr={number + 1}
+          questionNumber={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
           question={questions[number].question}
           answers={questions[number].answers}
@@ -98,9 +96,7 @@ export const Quiz = () => {
       !loading &&
       userAnswers.length === number + 1 &&
       number !== TOTAL_QUESTIONS - 1 ? (
-        <button className='next' onClick={nextQuestion}>
-          Next Question
-        </button>
+        <button onClick={nextQuestion}>Next Question</button>
       ) : null}
     </div>
   )

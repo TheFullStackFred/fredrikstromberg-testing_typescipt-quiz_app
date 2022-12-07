@@ -5,7 +5,7 @@ type Props = {
   answers: string[]
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void
   userAnswer: AnswerObject | undefined
-  questionNr: number
+  questionNumber: number
   totalQuestions: number
 }
 
@@ -14,7 +14,7 @@ export const QuestionCard = ({
   answers,
   callback,
   userAnswer,
-  questionNr,
+  questionNumber: questionNr,
   totalQuestions
 }: Props) => {
   return (
@@ -35,5 +35,3 @@ export const QuestionCard = ({
     </div>
   )
 }
-
-export {}

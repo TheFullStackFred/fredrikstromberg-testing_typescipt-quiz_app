@@ -7,6 +7,7 @@ export const Router = () => {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='Quiz' element={<Quiz />} />
+      <Route path='*' element={<h1>404 error</h1>} />
     </Routes>
   )
 }

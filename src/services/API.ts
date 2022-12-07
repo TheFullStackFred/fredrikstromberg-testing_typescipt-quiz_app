@@ -19,10 +19,11 @@ export enum Difficulty {
 export type QuestionsState = Question & { answers: string[] }
 
 export const fetchQuestions = async (
-  amount: number,
+  categories: string,
   difficulty: Difficulty
 ): Promise<QuestionsState[]> => {
-  const url = `https://the-trivia-api.com/api/questions?limit=9`
+  const url = `https://the-trivia-api.com/api/questions?categories=${categories}&limit=9&region=SE&difficulty=${difficulty}
+  `
   const data = await (await fetch(url)).json()
   console.log(data)
   return data.map((question: Question) => ({
