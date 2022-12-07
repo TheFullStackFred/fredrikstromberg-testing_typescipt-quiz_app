@@ -3,3 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: rgb(99, 205, 194);
+}
+
+.App {
+  text-align: center;
+}
