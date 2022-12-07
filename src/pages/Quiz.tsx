@@ -24,6 +24,11 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
+  const [category, setCategory] = useState('')
+  const [difficulty, setDifficulty] = useState('')
+
+  console.log(category)
+  console.log(difficulty)
 
   const { userName } = useContext(Context)
 
@@ -33,7 +38,10 @@ export const Quiz = () => {
     setLoading(true)
     setGameOver(false)
 
-    const newQuestions = await fetchQuestions('history', Difficulty.Easy)
+    const newQuestions = await fetchQuestions(
+      category,
+      difficulty as Difficulty
+    )
 
     setQuestions(newQuestions)
     setScore(0)
@@ -73,6 +81,8 @@ export const Quiz = () => {
 
   return (
     <div>
+      <button onClick={() => setCategory('history')}>HISTORY</button>
+      <button onClick={() => setDifficulty('medium')}>HARD</button>
       <h1>REACT QUIZ</h1>
       <h1>Welcome {userName}</h1>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (

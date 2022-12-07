@@ -14,13 +14,13 @@ export const QuestionCard = ({
   answers,
   callback,
   userAnswer,
-  questionNumber: questionNr,
+  questionNumber: questionNum,
   totalQuestions
 }: Props) => {
   return (
     <div>
       <p className='number'>
-        Question: {questionNr} / {totalQuestions}
+        Question: {questionNum} / {totalQuestions}
       </p>
       <p dangerouslySetInnerHTML={{ __html: question }} />
       <div>
