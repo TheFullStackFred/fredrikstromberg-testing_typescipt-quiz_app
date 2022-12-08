@@ -8,7 +8,6 @@ type Props = {
   questionNumber: number
   totalQuestions: number
 }
-
 export const QuestionCard = ({
   question,
   answers,
@@ -19,14 +18,22 @@ export const QuestionCard = ({
 }: Props) => {
   return (
     <div>
-      <p className='number'>
+      <p>
         Question: {questionNum} / {totalQuestions}
       </p>
       <p>{question}</p>
       <div>
         {answers?.map((answer) => (
           <div key={answer}>
-            <button disabled={!!userAnswer} value={answer} onClick={callback}>
+            <button
+              style={{
+                backgroundColor:
+                  userAnswer?.correctAnswer === answer ? 'springgreen' : ''
+              }}
+              disabled={!!userAnswer}
+              value={answer}
+              onClick={callback}
+            >
               <p>{answer}</p>
             </button>
           </div>

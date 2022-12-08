@@ -2,13 +2,7 @@ import { useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard'
-import {
-  fetchQuestions,
-  fetchCategories,
-  Difficulty,
-  Categories,
-  QuestionsState
-} from '../../src/services/API'
+import { fetchQuestions, QuestionsState } from '../../src/services/API'
 
 export type AnswerObject = {
   question: string
@@ -26,19 +20,15 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const [categories, setCategories] = useState('')
+  const [answerTrue, setAnswertrue] = useState('')
 
   const { userName } = useContext(Context)
-
-  fetchCategories(categories as Categories)
 
   const startQuiz = async () => {
     setLoading(true)
     setGameOver(false)
 
     const newQuestions = await fetchQuestions()
-    //   category,
-    //   difficulty as Difficulty
 
     setQuestions(newQuestions)
     setScore(0)
@@ -50,10 +40,13 @@ export const Quiz = () => {
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
       const answer = e.currentTarget.value
+      console.log(answer)
 
       const correct = questions[number].correctAnswer === answer
 
-      if (correct) setScore((prev) => prev + 1)
+      if (correct) {
+        setScore((prev) => prev + 1)
+      }
 
       const answerObject = {
         question: questions[number].question,
