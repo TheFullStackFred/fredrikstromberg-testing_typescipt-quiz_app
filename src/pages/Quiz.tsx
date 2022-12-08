@@ -20,7 +20,6 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const [answerTrue, setAnswertrue] = useState('')
 
   const { userName } = useContext(Context)
 
