@@ -16,6 +16,19 @@ export enum Difficulty {
   Hard = 'hard'
 }
 
+export enum Categories {
+  ArtsLiterature = 'Arts & Literature',
+  FilmTV = 'Film & TV',
+  FoodDrink = 'Food & Drink',
+  GeneralKnowledge = 'General Knowledge',
+  Geography = 'Geography',
+  History = 'History',
+  Music = 'Music',
+  Science = 'Science',
+  SocietyCulture = 'Society & Culture',
+  SportLeisure = 'Sport & Leisure'
+}
+
 export type QuestionsState = Question & { answers: string[] }
 
 export const fetchQuestions = async (): Promise<QuestionsState[]> => {
@@ -32,11 +45,12 @@ export const fetchQuestions = async (): Promise<QuestionsState[]> => {
   }))
 }
 
-export const fetchCategories = async (): Promise<string[]> => {
-  const url = 'https://the-trivia-api.com/api/categories'
+export const fetchCategories = async (
+  category: Categories
+): Promise<string[]> => {
+  const url = `https://the-trivia-api.com/api/categories`
   const data = await (await fetch(url)).json()
   console.log('category', data)
-
   return data
 }
 

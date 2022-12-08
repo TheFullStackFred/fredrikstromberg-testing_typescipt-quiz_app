@@ -6,6 +6,7 @@ import {
   fetchQuestions,
   fetchCategories,
   Difficulty,
+  Categories,
   QuestionsState
 } from '../../src/services/API'
 
@@ -25,12 +26,11 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
+  const [categories, setCategories] = useState('')
 
   const { userName } = useContext(Context)
 
-  console.log(questions)
-
-  fetchCategories()
+  fetchCategories(categories as Categories)
 
   const startQuiz = async () => {
     setLoading(true)
