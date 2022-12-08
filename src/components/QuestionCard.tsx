@@ -22,12 +22,12 @@ export const QuestionCard = ({
       <p className='number'>
         Question: {questionNum} / {totalQuestions}
       </p>
-      <p dangerouslySetInnerHTML={{ __html: question }} />
+      <p>{question}</p>
       <div>
         {answers?.map((answer) => (
           <div key={answer}>
             <button disabled={!!userAnswer} value={answer} onClick={callback}>
-              <span dangerouslySetInnerHTML={{ __html: answer }} />
+              <p>{answer}</p>
             </button>
           </div>
         ))}
