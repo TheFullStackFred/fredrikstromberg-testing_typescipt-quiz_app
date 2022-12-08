@@ -18,11 +18,8 @@ export enum Difficulty {
 
 export type QuestionsState = Question & { answers: string[] }
 
-export const fetchQuestions = async (
-  categories: string,
-  difficulty: Difficulty
-): Promise<QuestionsState[]> => {
-  const url = `https://the-trivia-api.com/api/questions?categories=${categories}&limit=9&region=SE&difficulty=${difficulty}
+export const fetchQuestions = async (): Promise<QuestionsState[]> => {
+  const url = `https://the-trivia-api.com/api/questions?limit=9
   `
   const data = await (await fetch(url)).json()
   console.log(data)
@@ -34,3 +31,14 @@ export const fetchQuestions = async (
     ])
   }))
 }
+
+export const fetchCategories = async (): Promise<string[]> => {
+  const url = 'https://the-trivia-api.com/api/categories'
+  const data = await (await fetch(url)).json()
+  console.log('category', data)
+
+  return data
+}
+
+// `https://the-trivia-api.com/api/questions?categories=${categories}&limit=9&region=SE&difficulty=${difficulty}
+//   `
