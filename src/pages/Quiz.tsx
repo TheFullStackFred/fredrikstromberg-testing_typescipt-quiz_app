@@ -26,7 +26,7 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const [difficulty, setDifficulty] = useState('')
+  const [difficulty, setDifficulty] = useState('easy')
   const [category, setCategory] = useState('')
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
@@ -52,7 +52,6 @@ export const Quiz = () => {
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
       const answer = e.currentTarget.value
-      console.log(answer)
 
       const correct = questions[number].correctAnswer === answer
 
@@ -87,20 +86,17 @@ export const Quiz = () => {
       <h1>Welcome {userName}</h1>
       <p>Select Difficulty</p>
 
-      <select>
+      <select onChange={(e) => setDifficulty(e.target.value)}>
         {difficultiesOptions.map((options, index) => (
-          <option
-            onClick={() => setDifficulty(options.backendName)}
-            key={index}
-          >
+          <option value={options.backendName} key={index}>
             {options.displayName}
           </option>
         ))}
       </select>
 
-      <select>
+      <select onChange={(e) => setCategory(e.target.value)}>
         {shuffledCategories.slice(0, 3).map((options, index) => (
-          <option onClick={() => setCategory(options.backendName)} key={index}>
+          <option value={options.backendName} key={index}>
             {options.displayName}
           </option>
         ))}
