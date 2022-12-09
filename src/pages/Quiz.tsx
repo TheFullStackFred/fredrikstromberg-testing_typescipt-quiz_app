@@ -2,7 +2,13 @@ import { useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard'
-import { fetchQuestions, QuestionsState } from '../../src/services/API'
+import {
+  fetchQuestions,
+  QuestionsState,
+  Difficulty,
+  Categories
+} from '../../src/services/API'
+import { difficultiesOptions, categoriesOptions } from '../constants/constants'
 
 export type AnswerObject = {
   question: string
@@ -20,6 +26,10 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
+  const [difficulty, setDifficulty] = useState('')
+  const [category, setCategory] = useState('')
+
+  const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
 
@@ -27,7 +37,10 @@ export const Quiz = () => {
     setLoading(true)
     setGameOver(false)
 
-    const newQuestions = await fetchQuestions()
+    const newQuestions = await fetchQuestions(
+      category as Categories,
+      difficulty as Difficulty
+    )
 
     setQuestions(newQuestions)
     setScore(0)
@@ -72,6 +85,27 @@ export const Quiz = () => {
     <div>
       <h1>REACT QUIZ</h1>
       <h1>Welcome {userName}</h1>
+      <p>Select Difficulty</p>
+
+      <select>
+        {difficultiesOptions.map((options, index) => (
+          <option
+            onClick={() => setDifficulty(options.backendName)}
+            key={index}
+          >
+            {options.displayName}
+          </option>
+        ))}
+      </select>
+
+      <select>
+        {shuffledCategories.slice(0, 3).map((options, index) => (
+          <option onClick={() => setCategory(options.backendName)} key={index}>
+            {options.displayName}
+          </option>
+        ))}
+      </select>
+
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button onClick={startQuiz}>Start Quiz</button>
       ) : null}
@@ -93,7 +127,14 @@ export const Quiz = () => {
       !loading &&
       userAnswers.length === number + 1 &&
       number !== TOTAL_QUESTIONS - 1 ? (
-        <button onClick={nextQuestion}>Next Question</button>
+        <button
+          onClick={() => {
+            nextQuestion()
+            startQuiz()
+          }}
+        >
+          Next Question
+        </button>
       ) : null}
     </div>
   )

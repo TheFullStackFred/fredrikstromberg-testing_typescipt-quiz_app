@@ -8,6 +8,7 @@ type Props = {
   questionNumber: number
   totalQuestions: number
 }
+
 export const QuestionCard = ({
   question,
   answers,
