@@ -37,15 +37,18 @@ export const Quiz = () => {
     setLoading(true)
     setGameOver(false)
 
+    if (!difficulty) {
+      setDifficulty('easy')
+    }
+
     const newQuestions = await fetchQuestions(
       category as Categories,
-      difficulty as Difficulty
+      (difficulty || 'easy') as Difficulty
     )
 
     setQuestions(newQuestions)
     setScore(0)
     setUserAnswers([])
-    // setNumber(0)
     setLoading(false)
   }
 
@@ -57,6 +60,7 @@ export const Quiz = () => {
 
       if (correct) {
         setScore((prev) => prev + 1)
+        setCategory('')
       }
 
       const answerObject = {
@@ -103,19 +107,22 @@ export const Quiz = () => {
       )}
       {category}
 
-      <p>Select Category</p>
-      <select onChange={(e) => setCategory(e.target.value)}>
-        {shuffledCategories.slice(0, 3).map((options, index) => (
-          <option value={options.backendName} key={index}>
-            {options.displayName}
-          </option>
-        ))}
-      </select>
+      {!category && (
+        <>
+          <p>Select Category</p>
+          <select onChange={(e) => setCategory(e.target.value)}>
+            {shuffledCategories.slice(0, 3).map((options, index) => (
+              <option value={options.backendName} key={index}>
+                {options.displayName}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
 
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button onClick={startQuiz}>Start Quiz</button>
       ) : null}
-
       {!gameOver ? <p>Score: {score}</p> : null}
       {loading && <p>Loading...</p>}
       {!loading && !gameOver && (

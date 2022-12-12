@@ -34,6 +34,7 @@ const randomDifficulties = (difficulty: string) => {
   if (difficulty === 'random') {
     return difficulties[Math.floor(Math.random() * difficulties.length)]
   }
+  return difficulty
 }
 
 export type QuestionsState = Question & { answers: string[] }
