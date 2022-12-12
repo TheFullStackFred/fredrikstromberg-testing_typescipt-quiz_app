@@ -190,3 +190,5 @@ export const Quiz = () => {
     </div>
   )
 }
+
+//TODO KAFFE MED ADAM 08:45
