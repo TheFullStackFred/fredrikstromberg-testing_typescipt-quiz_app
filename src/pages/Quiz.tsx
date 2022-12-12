@@ -45,7 +45,7 @@ export const Quiz = () => {
     setQuestions(newQuestions)
     setScore(0)
     setUserAnswers([])
-    setNumber(0)
+    // setNumber(0)
     setLoading(false)
   }
 
@@ -53,25 +53,31 @@ export const Quiz = () => {
     if (!gameOver) {
       const answer = e.currentTarget.value
 
-      const correct = questions[number].correctAnswer === answer
+      const correct = questions[0].correctAnswer === answer
 
       if (correct) {
         setScore((prev) => prev + 1)
       }
 
       const answerObject = {
-        question: questions[number].question,
+        question: questions[0].question,
         answer,
         correct,
-        correctAnswer: questions[number].correctAnswer
+        correctAnswer: questions[0].correctAnswer
       }
 
       setUserAnswers((prev) => [...prev, answerObject])
     }
   }
 
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
     setNumber((prev) => prev + 1)
+    const newQuestions = await fetchQuestions(
+      category as Categories,
+      difficulty as Difficulty
+    )
+
+    setQuestions(newQuestions)
 
     if (number === TOTAL_QUESTIONS) {
       setGameOver(true)
@@ -83,18 +89,21 @@ export const Quiz = () => {
   return (
     <div>
       <h1>Welcome {userName}</h1>
-      <p>Select Difficulty</p>
-
       {!difficulty && (
-        <select onChange={(e) => setDifficulty(e.target.value)}>
-          {difficultiesOptions.map((options, index) => (
-            <option value={options.backendName} key={index}>
-              {options.displayName}
-            </option>
-          ))}
-        </select>
+        <>
+          <p>Select Difficulty</p>
+          <select onChange={(e) => setDifficulty(e.target.value)}>
+            {difficultiesOptions.map((options, index) => (
+              <option value={options.backendName} key={index}>
+                {options.displayName}
+              </option>
+            ))}
+          </select>
+        </>
       )}
+      {category}
 
+      <p>Select Category</p>
       <select onChange={(e) => setCategory(e.target.value)}>
         {shuffledCategories.slice(0, 3).map((options, index) => (
           <option value={options.backendName} key={index}>
@@ -113,8 +122,8 @@ export const Quiz = () => {
         <QuestionCard
           questionNumber={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
-          question={questions[number].question}
-          answers={questions[number].answers}
+          question={questions[0].question}
+          answers={questions[0].answers}
           userAnswer={userAnswers ? userAnswers[number] : undefined}
           callback={checkAnswer}
         />

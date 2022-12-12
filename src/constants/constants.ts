@@ -1,11 +1,8 @@
-const difficulties = ['easy', 'medium', 'hard']
-const shuffledDifficulties = Math.floor(Math.random() * difficulties.length)
-
 export const difficultiesOptions = [
   { backendName: 'easy', displayName: 'Easy' },
   { backendName: 'medium', displayName: 'Medium' },
   { backendName: 'hard', displayName: 'Hard' },
-  { backendName: difficulties[shuffledDifficulties], displayName: 'Random' }
+  { backendName: 'random', displayName: 'Random' }
 ]
 
 export const categoriesOptions = [

@@ -29,13 +29,22 @@ export enum Categories {
   SportLeisure = 'Sport & Leisure'
 }
 
+const randomDifficulties = (difficulty: string) => {
+  const difficulties = ['easy', 'medium', 'hard']
+  if (difficulty === 'random') {
+    return difficulties[Math.floor(Math.random() * difficulties.length)]
+  }
+}
+
 export type QuestionsState = Question & { answers: string[] }
 
 export const fetchQuestions = async (
-  category: string,
+  category: Categories,
   difficulty: Difficulty
 ): Promise<QuestionsState[]> => {
-  const url = `https://the-trivia-api.com/api/questions?categories=${category}&limit=1&difficulty=${difficulty}
+  const url = `https://the-trivia-api.com/api/questions?categories=${category}&limit=1&difficulty=${randomDifficulties(
+    difficulty
+  )}
   `
   const data = await (await fetch(url)).json()
   console.log(data)
