@@ -1,10 +1,10 @@
-import { AnswerObject } from '../../src/pages/Quiz'
+import { AnswerProps } from '../../src/pages/Quiz'
 
 type Props = {
   question: string
   answers: string[]
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void
-  userAnswer: AnswerObject | undefined
+  userAnswer: AnswerProps | undefined
   questionNumber: number
   totalQuestions: number
 }

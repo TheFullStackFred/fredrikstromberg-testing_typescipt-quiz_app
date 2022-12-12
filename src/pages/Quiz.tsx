@@ -9,29 +9,64 @@ import {
   Categories
 } from '../../src/services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
+import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../config'
 
-export type AnswerObject = {
+export type AnswerProps = {
   question: string
   answer: string
   correct: boolean
   correctAnswer: string
+  questionDifficulty: difficultiesPoints | string
 }
-
-const TOTAL_QUESTIONS = 9
 
 export const Quiz = () => {
   const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState<QuestionsState[]>([])
-  const [number, setNumber] = useState(0)
-  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
-  const [score, setScore] = useState(0)
+  const [number, setNumber] = useState<number>(0)
+  const [userAnswers, setUserAnswers] = useState<AnswerProps[]>([])
+  const [score, setScore] = useState<number>(0)
   const [gameOver, setGameOver] = useState(true)
-  const [difficulty, setDifficulty] = useState('')
-  const [category, setCategory] = useState('')
+  const [difficulty, setDifficulty] = useState<string>('')
+  const [category, setCategory] = useState<string>('')
+  const [totalPoints, setTotalPoints] = useState<number>(0)
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
+
+  const questionTimer = () => {
+    let elapsedTime = 0
+    const interval = setInterval(() => {
+      if (elapsedTime === Time) {
+        clearInterval(interval)
+      }
+
+      if (userAnswers[number]?.correct) {
+        let points: number = 0
+        switch (userAnswers[number].questionDifficulty) {
+          case 'easy':
+            points = difficultiesPoints.easy
+            break
+          case 'medium':
+            points = difficultiesPoints.medium
+            break
+          case 'hard':
+            points = difficultiesPoints.hard
+            break
+        }
+
+        setTotalPoints(totalPoints + (Time - elapsedTime) * points)
+        clearInterval(interval)
+      }
+
+      if (userAnswers[number]?.correct === false) {
+        clearInterval(interval)
+      }
+
+      elapsedTime++
+    }, 1000)
+    return
+  }
 
   const startQuiz = async () => {
     setLoading(true)
@@ -40,6 +75,8 @@ export const Quiz = () => {
     if (!difficulty) {
       setDifficulty('easy')
     }
+
+    questionTimer()
 
     const newQuestions = await fetchQuestions(
       category as Categories,
@@ -67,6 +104,7 @@ export const Quiz = () => {
         question: questions[0].question,
         answer,
         correct,
+        questionDifficulty: difficulty,
         correctAnswer: questions[0].correctAnswer
       }
 
@@ -75,6 +113,7 @@ export const Quiz = () => {
   }
 
   const nextQuestion = async () => {
+    questionTimer()
     setNumber((prev) => prev + 1)
     const newQuestions = await fetchQuestions(
       category as Categories,
