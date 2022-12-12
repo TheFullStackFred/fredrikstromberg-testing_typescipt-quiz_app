@@ -84,13 +84,17 @@ export const Quiz = () => {
     <div>
       <h1>Welcome {userName}</h1>
       <p>Select Difficulty</p>
-      <select onChange={(e) => setDifficulty(e.target.value)}>
-        {difficultiesOptions.map((options, index) => (
-          <option value={options.backendName} key={index}>
-            {options.displayName}
-          </option>
-        ))}
-      </select>
+
+      {!difficulty && (
+        <select onChange={(e) => setDifficulty(e.target.value)}>
+          {difficultiesOptions.map((options, index) => (
+            <option value={options.backendName} key={index}>
+              {options.displayName}
+            </option>
+          ))}
+        </select>
+      )}
+
       <select onChange={(e) => setCategory(e.target.value)}>
         {shuffledCategories.slice(0, 3).map((options, index) => (
           <option value={options.backendName} key={index}>
@@ -98,6 +102,7 @@ export const Quiz = () => {
           </option>
         ))}
       </select>
+
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button onClick={startQuiz}>Start Quiz</button>
       ) : null}
@@ -114,6 +119,7 @@ export const Quiz = () => {
           callback={checkAnswer}
         />
       )}
+
       {!gameOver &&
       !loading &&
       userAnswers.length === number + 1 &&
@@ -121,7 +127,6 @@ export const Quiz = () => {
         <button
           onClick={() => {
             nextQuestion()
-            // startQuiz()
           }}
         >
           Next Question
