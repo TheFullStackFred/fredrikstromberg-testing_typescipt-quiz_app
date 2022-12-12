@@ -9,14 +9,14 @@ export const difficultiesOptions = [
 ]
 
 export const categoriesOptions = [
-  { backendName: 'Arts & Literature', displayName: 'Arts & Literature' },
-  { backendName: 'Film & TV', displayName: 'Film & TV' },
-  { backendName: 'Food & Drink', displayName: 'Food & Drink' },
-  { backendName: 'General Knowledge', displayName: 'General Knowledge' },
-  { backendName: 'Geography', displayName: 'Geography' },
-  { backendName: 'History', displayName: 'History' },
-  { backendName: 'Music', displayName: 'Music' },
-  { backendName: 'Science', displayName: 'Science' },
-  { backendName: 'Society & Culture', displayName: 'Society & Culture' },
-  { backendName: 'Sport & Leisure', displayName: 'Sport & Leisure' }
+  { backendName: 'arts_and_literature', displayName: 'Arts & Literature' },
+  { backendName: 'film_and_tv', displayName: 'Film & TV' },
+  { backendName: 'food_and_drink', displayName: 'Food & Drink' },
+  { backendName: 'general_knowledge', displayName: 'General Knowledge' },
+  { backendName: 'geography', displayName: 'Geography' },
+  { backendName: 'history', displayName: 'History' },
+  { backendName: 'music', displayName: 'Music' },
+  { backendName: 'science', displayName: 'Science' },
+  { backendName: 'society_and_culture', displayName: 'Society & Culture' },
+  { backendName: 'sport_and_leisure', displayName: 'Sport & Leisure' }
 ]
