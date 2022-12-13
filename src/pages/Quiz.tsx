@@ -52,6 +52,7 @@ export const Quiz = () => {
     setLoading(true)
     setGameOver(false)
     setActiveTime(true)
+    setTimer(Time)
 
     if (!difficulty) {
       setDifficulty('easy')
@@ -146,7 +147,15 @@ export const Quiz = () => {
       )}
 
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-        <button onClick={startQuiz}>Start Quiz</button>
+        <button
+          onClick={() => {
+            setTimeout(() => {
+              startQuiz()
+            }, 3000)
+          }}
+        >
+          Start Quiz
+        </button>
       ) : null}
       {!gameOver ? <p>Score: {score}</p> : null}
       {loading && <p>Loading...</p>}
@@ -167,7 +176,9 @@ export const Quiz = () => {
       number !== TOTAL_QUESTIONS - 1 ? (
         <button
           onClick={() => {
-            nextQuestion()
+            setTimeout(() => {
+              nextQuestion()
+            }, 3000)
           }}
         >
           Next Question
