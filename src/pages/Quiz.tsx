@@ -69,6 +69,7 @@ export const Quiz = () => {
   }
 
   const startQuiz = async () => {
+    setNumber(0)
     setLoading(true)
     setGameOver(false)
 
@@ -190,5 +191,3 @@ export const Quiz = () => {
     </div>
   )
 }
-
-//TODO KAFFE MED ADAM 08:45
