@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard'
@@ -29,55 +29,33 @@ export const Quiz = () => {
   const [difficulty, setDifficulty] = useState<string>('')
   const [category, setCategory] = useState<string>('')
   const [totalPoints, setTotalPoints] = useState<number>(0)
+  const [timer, setTimer] = useState<number>(Time)
+  const [activeTime, setActiveTime] = useState<boolean>(false)
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
 
-  const questionTimer = () => {
-    let elapsedTime = 0
-    const interval = setInterval(() => {
-      if (elapsedTime === Time) {
-        clearInterval(interval)
+  useEffect(() => {
+    if (activeTime) {
+      const elapsedTime: number = 0
+      if (timer > elapsedTime) {
+        setTimeout(() => {
+          setTimer(timer - 1)
+        }, 1000)
       }
-
-      if (userAnswers[number]?.correct) {
-        let points: number = 0
-        switch (userAnswers[number].questionDifficulty) {
-          case 'easy':
-            points = difficultiesPoints.easy
-            break
-          case 'medium':
-            points = difficultiesPoints.medium
-            break
-          case 'hard':
-            points = difficultiesPoints.hard
-            break
-        }
-
-        setTotalPoints(totalPoints + (Time - elapsedTime) * points)
-        clearInterval(interval)
-      }
-
-      if (userAnswers[number]?.correct === false) {
-        clearInterval(interval)
-      }
-
-      elapsedTime++
-    }, 1000)
-    return
-  }
+    }
+  }, [activeTime, timer])
 
   const startQuiz = async () => {
     setNumber(0)
     setLoading(true)
     setGameOver(false)
+    setActiveTime(true)
 
     if (!difficulty) {
       setDifficulty('easy')
     }
-
-    questionTimer()
 
     const newQuestions = await fetchQuestions(
       category as Categories,
@@ -95,6 +73,8 @@ export const Quiz = () => {
       const answer = e.currentTarget.value
 
       const correct = questions[0].correctAnswer === answer
+
+      setActiveTime(false)
 
       if (correct) {
         setScore((prev) => prev + 1)
@@ -114,8 +94,10 @@ export const Quiz = () => {
   }
 
   const nextQuestion = async () => {
-    questionTimer()
     setNumber((prev) => prev + 1)
+    setActiveTime(true)
+    setTimer(Time)
+
     const newQuestions = await fetchQuestions(
       category as Categories,
       difficulty as Difficulty
@@ -133,6 +115,7 @@ export const Quiz = () => {
   return (
     <div>
       <h1>Welcome {userName}</h1>
+
       {!difficulty && (
         <>
           <p>Select Difficulty</p>
@@ -145,6 +128,8 @@ export const Quiz = () => {
           </select>
         </>
       )}
+      <p>TIME ELAPSED: {timer}</p>
+
       {category}
 
       {!category && (
