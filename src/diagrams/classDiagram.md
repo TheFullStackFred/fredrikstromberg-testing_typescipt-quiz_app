@@ -5,7 +5,7 @@
     App <|-- Home
     App <|-- Quiz
     Quiz <|-- QuestionCard
-    Home <|-- Nameinput
+    Home <|-- NameInput
 
 
     class App {
@@ -20,7 +20,7 @@
     class QuestionCard {
 
     }
-    class Input {
+    class NameInput {
 
     }
 
