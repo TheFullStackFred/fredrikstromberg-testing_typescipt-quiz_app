@@ -16,15 +16,15 @@ sequenceDiagram
 
     alt Correct Answer
         U->>A: Select correct answer
+        U->>A: Select new category
         A->>T: Send fetch request
         T-->>A: Send response
-        A-->>U: Send correct answer
         A-->>U: Send next question
+
     else Incorrect Answer
         U->>A: Select incorrect answer
         A->>T: Send fetch request
         T-->>A: Send response
-        A-->>U: Send incorrect answer
         A-->>U: Send next question
     end
 ```
