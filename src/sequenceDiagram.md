@@ -11,4 +11,7 @@ sequenceDiagram
     App->>Api: Send fetch request
     Api->>App: Send response
     App->>User: Send question
+    User->>App: Answer question
+    App->>Api: Send next question
+
 ```
