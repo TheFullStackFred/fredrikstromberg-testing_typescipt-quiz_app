@@ -5,8 +5,10 @@ sequenceDiagram
     participant Api
 
     User->>App: Enter username &/or start quiz
-    User->>App: Navigate to quiz
-    App->>Api: Send quiz request
-    Api-->App: Send question
+    App->>User: Navigate to quiz
+    User->>App: Select a category and difficulty
+    User->>App: Start quiz
+    App->>Api: Send fetch request
+    Api-->App: Send response
     App->>User: Send question
 ```
