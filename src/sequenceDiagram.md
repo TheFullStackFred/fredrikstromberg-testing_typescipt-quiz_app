@@ -9,6 +9,6 @@ sequenceDiagram
     User->>App: Select a category and difficulty
     User->>App: Start quiz
     App->>Api: Send fetch request
-    Api-->App: Send response
+    Api->>App: Send response
     App->>User: Send question
 ```
