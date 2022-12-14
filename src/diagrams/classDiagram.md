@@ -2,26 +2,26 @@
 
 ```mermaid
   classDiagram
-    App.tsx <|-- Home.tsx
-    App.tsx <|-- Quiz.tsx
-    Quiz.tsx <|-- QuestionCard.tsx
-    Home.tsx <|-- Nameinput.tsx
+    App <|-- Home
+    App <|-- Quiz
+    Quiz <|-- QuestionCard
+    Home <|-- Nameinput
 
 
-    class App.tsx {
+    class App {
         +String beakColor
         +swim()
         +quack()
     }
-    class Home.tsx{
+    class Home.{
         -Input
         -Button(navigate to Quiz)
     }
-    class Quiz.tsx{
+    class Quiz {
         +bool is_wild
         +run()
     }
-    class QuestionCard.tsx{
+    class QuestionCard {
         +bool is_wild
         +run()
     }
