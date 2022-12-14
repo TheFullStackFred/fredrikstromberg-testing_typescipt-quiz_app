@@ -13,7 +13,7 @@
         +swim()
         +quack()
     }
-    class Home.{
+    class Home {
         -Input
         -Button(navigate to Quiz)
     }
@@ -22,6 +22,10 @@
         +run()
     }
     class QuestionCard {
+        +bool is_wild
+        +run()
+    }
+    class Input {
         +bool is_wild
         +run()
     }
