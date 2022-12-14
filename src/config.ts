@@ -1,4 +1,4 @@
-export const Time: number = 30
+export const Time: number = 33
 
 export enum difficultiesPoints {
   easy = 1,

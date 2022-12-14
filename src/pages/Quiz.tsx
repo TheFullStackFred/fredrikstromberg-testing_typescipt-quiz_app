@@ -29,30 +29,48 @@ export const Quiz = () => {
   const [difficulty, setDifficulty] = useState<string>('')
   const [category, setCategory] = useState<string>('')
   const [totalPoints, setTotalPoints] = useState<number>(0)
-  const [timer, setTimer] = useState<number>(Time)
-  const [activeTime, setActiveTime] = useState<boolean>(false)
-
+  const [questionTimer, setQuestionTimer] = useState<number>(Time)
+  const [questionTime, setQuestionTime] = useState<boolean>(false)
+  const [delayTimer, setDelayTimer] = useState<number>(3)
+  const [delayTime, setDelayTime] = useState<boolean>(false)
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
 
   useEffect(() => {
-    if (activeTime) {
+    if (questionTime) {
       const elapsedTime: number = 0
-      if (timer > elapsedTime) {
+      if (questionTimer > elapsedTime) {
         setTimeout(() => {
-          setTimer(timer - 1)
+          setQuestionTimer(questionTimer - 1)
         }, 1000)
       }
     }
-  }, [activeTime, timer])
+  }, [questionTime, questionTimer])
+
+  useEffect(() => {
+    if (delayTime) {
+      const elapsedTime: number = 0
+      if (delayTimer > elapsedTime) {
+        setTimeout(() => {
+          setDelayTimer(delayTimer - 1)
+        }, 1000)
+      }
+
+      if (delayTimer === elapsedTime) {
+        setDelayTime(false)
+        setDelayTimer(3)
+      }
+    }
+  }, [delayTime, delayTimer])
 
   const startQuiz = async () => {
+    setDelayTime(true)
     setNumber(0)
     setLoading(true)
     setGameOver(false)
-    setActiveTime(true)
-    setTimer(Time)
+    setQuestionTime(true)
+    setQuestionTimer(Time)
 
     if (!difficulty) {
       setDifficulty('easy')
@@ -75,7 +93,7 @@ export const Quiz = () => {
 
       const correct = questions[0].correctAnswer === answer
 
-      setActiveTime(false)
+      setQuestionTime(false)
 
       if (correct) {
         setScore((prev) => prev + 1)
@@ -95,9 +113,10 @@ export const Quiz = () => {
   }
 
   const nextQuestion = async () => {
+    setDelayTime(true)
     setNumber((prev) => prev + 1)
-    setActiveTime(true)
-    setTimer(Time)
+    setQuestionTime(true)
+    setQuestionTimer(Time)
 
     const newQuestions = await fetchQuestions(
       category as Categories,
@@ -115,73 +134,73 @@ export const Quiz = () => {
 
   return (
     <div className='container'>
-      <h1>Welcome {userName}</h1>
-
-      {!difficulty && (
+      {delayTime ? (
+        <h3>{delayTimer} </h3>
+      ) : (
         <>
-          <p>Select Difficulty</p>
-          <select onChange={(e) => setDifficulty(e.target.value)}>
-            {difficultiesOptions.map((options, index) => (
-              <option value={options.backendName} key={index}>
-                {options.displayName}
-              </option>
-            ))}
-          </select>
+          {!gameOver ? <p>Score: {score}</p> : null}
+
+          <h1>Welcome {userName}</h1>
+          {!difficulty && (
+            <>
+              <p>Select Difficulty</p>
+              <select onChange={(e) => setDifficulty(e.target.value)}>
+                {difficultiesOptions.map((options, index) => (
+                  <option value={options.backendName} key={index}>
+                    {options.displayName}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
+          {!gameOver && <p>Time left: {questionTimer}</p>}
+          {!category && (
+            <>
+              <p>Select Category</p>
+              <select onChange={(e) => setCategory(e.target.value)}>
+                {shuffledCategories.slice(0, 3).map((options, index) => (
+                  <option value={options.backendName} key={index}>
+                    {options.displayName}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
+          {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+            <button
+              onClick={() => {
+                startQuiz()
+              }}
+            >
+              Start Quiz
+            </button>
+          ) : null}
+          {!gameOver ? <p>Score: {score}</p> : null}
+          {loading && <p>Trying to fetch data...</p>}
+          {!loading && !gameOver && (
+            <QuestionCard
+              questionNumber={number + 1}
+              totalQuestions={TOTAL_QUESTIONS}
+              question={questions[0].question}
+              answers={questions[0].answers}
+              userAnswer={userAnswers ? userAnswers[number] : undefined}
+              callback={checkAnswer}
+            />
+          )}
+          {!gameOver &&
+          !loading &&
+          userAnswers.length === number + 1 &&
+          number !== TOTAL_QUESTIONS - 1 ? (
+            <button
+              onClick={() => {
+                nextQuestion()
+              }}
+            >
+              Next Question
+            </button>
+          ) : null}
         </>
       )}
-      {!gameOver && <p>Time left: {timer}</p>}
-
-      {!category && (
-        <>
-          <p>Select Category</p>
-          <select onChange={(e) => setCategory(e.target.value)}>
-            {shuffledCategories.slice(0, 3).map((options, index) => (
-              <option value={options.backendName} key={index}>
-                {options.displayName}
-              </option>
-            ))}
-          </select>
-        </>
-      )}
-
-      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-        <button
-          onClick={() => {
-            setTimeout(() => {
-              startQuiz()
-            }, 3000)
-          }}
-        >
-          Start Quiz
-        </button>
-      ) : null}
-      {!gameOver ? <p>Score: {score}</p> : null}
-      {loading && <p>Trying to fetch data...</p>}
-      {!loading && !gameOver && (
-        <QuestionCard
-          questionNumber={number + 1}
-          totalQuestions={TOTAL_QUESTIONS}
-          question={questions[0].question}
-          answers={questions[0].answers}
-          userAnswer={userAnswers ? userAnswers[number] : undefined}
-          callback={checkAnswer}
-        />
-      )}
-
-      {!gameOver &&
-      !loading &&
-      userAnswers.length === number + 1 &&
-      number !== TOTAL_QUESTIONS - 1 ? (
-        <button
-          onClick={() => {
-            setTimeout(() => {
-              nextQuestion()
-            }, 3000)
-          }}
-        >
-          Next Question
-        </button>
-      ) : null}
     </div>
   )
 }
