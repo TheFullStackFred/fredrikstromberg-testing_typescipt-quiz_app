@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import Context from '../../context/Context'
-import { QuestionCard } from '../../components/QuestionCard'
+import Context from '../context/Context'
+import { QuestionCard } from '../components/QuestionCard'
 import {
   fetchQuestions,
   QuestionsState,
   Difficulty,
   Categories
-} from '../../services/API'
-import {
-  difficultiesOptions,
-  categoriesOptions
-} from '../../constants/constants'
-import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../../config'
-
-import './Quiz.css'
+} from '../services/API'
+import { difficultiesOptions, categoriesOptions } from '../constants/constants'
+import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../config'
 
 export type AnswerProps = {
   question: string
@@ -119,7 +114,7 @@ export const Quiz = () => {
   }
 
   return (
-    <div id='quiz'>
+    <div className='container'>
       <h1>Welcome {userName}</h1>
 
       {!difficulty && (

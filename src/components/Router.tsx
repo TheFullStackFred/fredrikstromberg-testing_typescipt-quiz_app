@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Home } from '../pages/Home'
-import { Quiz } from '../pages/quiz/Quiz'
+import { Quiz } from '../pages/Quiz'
 
 export const Router = () => {
   return (

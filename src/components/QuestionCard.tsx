@@ -1,4 +1,4 @@
-import { AnswerProps } from '../pages/quiz/Quiz'
+import { AnswerProps } from '../pages/Quiz'
 
 type Props = {
   question: string
