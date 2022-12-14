@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import Context from '../context/Context'
-import { QuestionCard } from '../components/QuestionCard'
+import Context from '../../context/Context'
+import { QuestionCard } from '../../components/QuestionCard'
 import {
   fetchQuestions,
   QuestionsState,
   Difficulty,
   Categories
-} from '../../src/services/API'
-import { difficultiesOptions, categoriesOptions } from '../constants/constants'
-import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../config'
+} from '../../services/API'
+import {
+  difficultiesOptions,
+  categoriesOptions
+} from '../../constants/constants'
+import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../../config'
+
+import './Quiz.css'
 
 export type AnswerProps = {
   question: string
@@ -114,7 +119,7 @@ export const Quiz = () => {
   }
 
   return (
-    <div>
+    <div id='quiz'>
       <h1>Welcome {userName}</h1>
 
       {!difficulty && (
@@ -129,9 +134,7 @@ export const Quiz = () => {
           </select>
         </>
       )}
-      <p>TIME ELAPSED: {timer}</p>
-
-      {category}
+      {!gameOver && <p>Time left: {timer}</p>}
 
       {!category && (
         <>
@@ -158,7 +161,7 @@ export const Quiz = () => {
         </button>
       ) : null}
       {!gameOver ? <p>Score: {score}</p> : null}
-      {loading && <p>Loading...</p>}
+      {loading && <p>Trying to fetch data...</p>}
       {!loading && !gameOver && (
         <QuestionCard
           questionNumber={number + 1}
