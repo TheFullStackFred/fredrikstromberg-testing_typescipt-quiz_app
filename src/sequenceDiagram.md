@@ -2,9 +2,9 @@
 
 ```mermaid
 sequenceDiagram
-    participant User as U
-    participant App as A
-    participant The Trivia Api as T
+    participant  U as User
+    participant A as App
+    participant T as The Trivia Api
 
     U->>A: Enter username &/or start quiz
     A-->>U: Navigate to quiz
