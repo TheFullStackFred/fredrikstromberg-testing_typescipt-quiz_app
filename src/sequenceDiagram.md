@@ -14,5 +14,17 @@ sequenceDiagram
     T-->>A: Send response
     A-->>U: Send question
 
-
+    <!-- alt Correct Answer
+        U->>A: Select correct answer
+        A->>T: Send fetch request
+        T-->>A: Send response
+        A-->>U: Send correct answer
+        A-->>U: Send next question
+    else Incorrect Answer
+        U->>A: Select incorrect answer
+        A->>T: Send fetch request
+        T-->>A: Send response
+        A-->>U: Send incorrect answer
+        A-->>U: Send next question
+    end -->
 ```
