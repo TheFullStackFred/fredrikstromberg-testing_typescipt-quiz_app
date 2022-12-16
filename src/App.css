@@ -27,7 +27,6 @@ button {
 }
 
 .container {
-  border: 5px solid #00cc99;
   border-radius: 8px;
   padding: 20px 20px;
   display: flex;

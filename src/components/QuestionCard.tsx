@@ -1,6 +1,6 @@
 import { AnswerProps } from '../pages/Quiz'
 
-type Props = {
+export type Props = {
   question: string
   answers: string[]
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void
@@ -22,7 +22,7 @@ export const QuestionCard = ({
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      <p>{question}</p>
+      <p data-testid='question'>{question}</p>
       <div>
         {answers?.map((answer) => (
           <div key={answer}>
