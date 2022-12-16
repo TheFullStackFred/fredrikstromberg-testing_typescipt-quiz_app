@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { NameInput } from '../components/NameInput'
+import { NameInput } from '../components/nameinput/NameInput'
 import '../'
 export const Home = () => {
   const navigate = useNavigate()

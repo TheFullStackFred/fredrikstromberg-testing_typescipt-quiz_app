@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext } from 'react'
-import Context from '../context/Context'
+import Context from '../../context/Context'
 
 export const NameInput = () => {
   const { setUserName } = useContext(Context)

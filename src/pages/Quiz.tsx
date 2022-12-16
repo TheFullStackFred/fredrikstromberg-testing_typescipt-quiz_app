@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
-import { QuestionCard } from '../components/QuestionCard'
+import { QuestionCard } from '../components/questionCard/QuestionCard'
 import { fetchQuestions, QuestionsState } from '../services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
 import {
