@@ -19,6 +19,7 @@
     }
 
     class Quiz {
+        fetchQuestions()
 
     }
 

@@ -139,8 +139,8 @@ export const Quiz = () => {
       ) : (
         <>
           {!gameOver ? <p>Score: {score}</p> : null}
-
           <h1>Welcome {userName}</h1>
+
           {!difficulty && (
             <>
               <p>Select Difficulty</p>
@@ -153,7 +153,9 @@ export const Quiz = () => {
               </select>
             </>
           )}
-          {!gameOver && <p>Time left: {questionTimer}</p>}
+
+          {!gameOver && <h3>Time left: {questionTimer}</h3>}
+
           {!category && (
             <>
               <p>Select Category</p>
@@ -166,6 +168,7 @@ export const Quiz = () => {
               </select>
             </>
           )}
+
           {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
             <button
               onClick={() => {
@@ -175,6 +178,7 @@ export const Quiz = () => {
               Start Quiz
             </button>
           ) : null}
+
           {!gameOver ? <p>Score: {score}</p> : null}
           {loading && <p>Trying to fetch data...</p>}
           {!loading && !gameOver && (
@@ -187,6 +191,7 @@ export const Quiz = () => {
               callback={checkAnswer}
             />
           )}
+
           {!gameOver &&
           !loading &&
           userAnswers.length === number + 1 &&

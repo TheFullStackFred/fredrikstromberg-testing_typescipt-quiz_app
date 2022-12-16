@@ -7,13 +7,19 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.6",
-    "@types/react": "^18.0.26",
+    "@types/node": "^16.18.3",
+    "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "@types/react-test-renderer": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
+    "i": "^0.3.7",
+    "npm": "^9.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.4",
-    "react-scripts": "5.0.1",
+    "react-icons": "^4.6.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^5.3.6",
     "typescript": "^4.9.3",
     "web-vitals": "^2.1.4"
   },
@@ -21,7 +27,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
+    "test-storybook": "test-storybook"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +49,26 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^8.9.0",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-interactions": "^6.5.14",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/node-logger": "^6.5.14",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.14",
+    "@storybook/test-runner": "^0.9.1",
+    "@storybook/testing-library": "^0.0.13",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "cypress": "^12.1.0",
+    "jest-cucumber": "^3.0.1",
+    "prop-types": "^15.8.1",
+    "react-test-renderer": "^18.2.0",
+    "tslint-config-prettier": "^1.18.0",
+    "webpack": "^5.75.0"
   }
 }
