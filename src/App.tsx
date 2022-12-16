@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Router } from './components/Router'
 import Context from './context/Context'
+import { Greeting } from './components/Greeting'
 import './App.css'
 
 export const App = () => {
@@ -8,6 +9,7 @@ export const App = () => {
 
   return (
     <div className='App'>
+      <Greeting />
       <Context.Provider value={{ userName, setUserName }}>
         <Router />
       </Context.Provider>
