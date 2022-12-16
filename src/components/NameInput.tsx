@@ -9,7 +9,12 @@ export const NameInput = () => {
 
   return (
     <>
-      <input type='text' placeholder='Name...' onChange={addName} />
+      <input
+        data-testid='input'
+        type='text'
+        placeholder='Name...'
+        onChange={addName}
+      />
     </>
   )
 }

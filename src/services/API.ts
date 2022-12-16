@@ -1,6 +1,6 @@
 import { shuffleArray } from '../utilities/utils'
 import { Categories } from '../enums/QuizCategory'
-import { Difficulty } from '../enums/QuizDifficulty'
+import { Difficulties } from '../enums/QuizDifficulty'
 import { Question } from '../interfaces/QuestionInterface'
 
 const randomDifficulties = (difficulty: string) => {
@@ -15,7 +15,7 @@ export type QuestionsState = Question & { answers: string[] }
 
 export const fetchQuestions = async (
   category: Categories,
-  difficulty: Difficulty
+  difficulty: Difficulties
 ): Promise<QuestionsState[]> => {
   const url = `https://the-trivia-api.com/api/questions?categories=${category}&limit=1&difficulty=${randomDifficulties(
     difficulty

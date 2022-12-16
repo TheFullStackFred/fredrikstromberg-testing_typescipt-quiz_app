@@ -10,7 +10,7 @@ import {
   DIFFICULTY_POINTS
 } from '../config'
 import { Categories } from '../enums/QuizCategory'
-import { Difficulty } from '../enums/QuizDifficulty'
+import { Difficulties } from '../enums/QuizDifficulty'
 
 export type AnswerProps = {
   question: string
@@ -79,7 +79,7 @@ export const Quiz = () => {
 
     const newQuestions = await fetchQuestions(
       category as Categories,
-      (difficulty || 'easy') as Difficulty
+      (difficulty || 'easy') as Difficulties
     )
 
     setQuestions(newQuestions)
@@ -121,7 +121,7 @@ export const Quiz = () => {
 
     const newQuestions = await fetchQuestions(
       category as Categories,
-      difficulty as Difficulty
+      difficulty as Difficulties
     )
 
     setQuestions(newQuestions)

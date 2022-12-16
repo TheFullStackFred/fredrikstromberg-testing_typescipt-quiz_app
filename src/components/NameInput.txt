@@ -1,0 +1,10 @@
+import { render } from '@testing-library/react'
+import { NameInput } from './NameInput'
+
+describe('Input', () => {
+  it('Input is empty', () => {
+    const { getByTestId } = render(<NameInput />)
+    const inputValue = getByTestId('input').textContent
+    expect(inputValue).toEqual(null)
+  })
+})
