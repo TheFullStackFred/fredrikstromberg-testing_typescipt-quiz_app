@@ -4,7 +4,11 @@ import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard'
 import { fetchQuestions, QuestionsState } from '../services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
-import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../config'
+import {
+  QUESTION_COUNTDOWN,
+  TOTAL_QUESTIONS,
+  DIFFICULTY_POINTS
+} from '../config'
 import { Categories } from '../enums/QuizCategory'
 import { Difficulty } from '../enums/QuizDifficulty'
 
@@ -13,7 +17,7 @@ export type AnswerProps = {
   answer: string
   correct: boolean
   correctAnswer: string
-  questionDifficulty: difficultiesPoints | string
+  questionDifficulty: string
 }
 
 export const Quiz = () => {
@@ -25,11 +29,11 @@ export const Quiz = () => {
   const [gameOver, setGameOver] = useState(true)
   const [difficulty, setDifficulty] = useState<string>('')
   const [category, setCategory] = useState<string>('')
-  const [totalPoints, setTotalPoints] = useState<number>(0)
-  const [questionTimer, setQuestionTimer] = useState<number>(Time)
-  const [questionTime, setQuestionTime] = useState<boolean>(false)
-  const [delayTimer, setDelayTimer] = useState<number>(3)
   const [delayTime, setDelayTime] = useState<boolean>(false)
+  const [delayCountDown, setDelayCountdown] = useState<number>(3)
+  const [questionTime, setQuestionTime] = useState<boolean>(false)
+  const [questionCountdown, setQuestionCountdown] =
+    useState<number>(QUESTION_COUNTDOWN)
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
@@ -37,29 +41,29 @@ export const Quiz = () => {
   useEffect(() => {
     if (questionTime) {
       const elapsedTime: number = 0
-      if (questionTimer > elapsedTime) {
+      if (questionCountdown > elapsedTime) {
         setTimeout(() => {
-          setQuestionTimer(questionTimer - 1)
+          setQuestionCountdown(questionCountdown - 1)
         }, 1000)
       }
     }
-  }, [questionTime, questionTimer])
+  }, [questionTime, questionCountdown])
 
   useEffect(() => {
     if (delayTime) {
       const elapsedTime: number = 0
-      if (delayTimer > elapsedTime) {
+      if (delayCountDown > elapsedTime) {
         setTimeout(() => {
-          setDelayTimer(delayTimer - 1)
+          setDelayCountdown(delayCountDown - 1)
         }, 1000)
       }
 
-      if (delayTimer === elapsedTime) {
+      if (delayCountDown === elapsedTime) {
         setDelayTime(false)
-        setDelayTimer(3)
+        setDelayCountdown(3)
       }
     }
-  }, [delayTime, delayTimer])
+  }, [delayTime, delayCountDown])
 
   const startQuiz = async () => {
     setDelayTime(true)
@@ -67,7 +71,7 @@ export const Quiz = () => {
     setLoading(true)
     setGameOver(false)
     setQuestionTime(true)
-    setQuestionTimer(Time)
+    setQuestionCountdown(QUESTION_COUNTDOWN + delayCountDown)
 
     if (!difficulty) {
       setDifficulty('easy')
@@ -113,7 +117,7 @@ export const Quiz = () => {
     setDelayTime(true)
     setNumber((prev) => prev + 1)
     setQuestionTime(true)
-    setQuestionTimer(Time)
+    setQuestionCountdown(QUESTION_COUNTDOWN + delayCountDown)
 
     const newQuestions = await fetchQuestions(
       category as Categories,
@@ -132,7 +136,7 @@ export const Quiz = () => {
   return (
     <div className='container'>
       {delayTime ? (
-        <h3>{delayTimer} </h3>
+        <h3>{delayCountDown} </h3>
       ) : (
         <>
           {!gameOver ? <p>Score: {score}</p> : null}
@@ -151,7 +155,7 @@ export const Quiz = () => {
             </>
           )}
 
-          {!gameOver && <h3>Time left: {questionTimer}</h3>}
+          {!gameOver && <h3>Time left: {questionCountdown}</h3>}
 
           {!category && (
             <>
