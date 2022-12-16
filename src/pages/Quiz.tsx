@@ -2,14 +2,11 @@ import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard'
-import {
-  fetchQuestions,
-  QuestionsState,
-  Difficulty,
-  Categories
-} from '../services/API'
+import { fetchQuestions, QuestionsState } from '../services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
 import { TOTAL_QUESTIONS, Time, difficultiesPoints } from '../config'
+import { Categories } from '../enums/QuizCategory'
+import { Difficulty } from '../enums/QuizDifficulty'
 
 export type AnswerProps = {
   question: string

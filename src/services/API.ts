@@ -1,33 +1,7 @@
 import { shuffleArray } from '../utilities/utils'
-
-export interface Question {
-  category: string
-  correctAnswer: string
-  incorrectAnswers: string[]
-  question: string
-  difficulty: string
-  type: string
-  regions: string[]
-}
-
-export enum Difficulty {
-  Easy = 'easy',
-  Medium = 'medium',
-  Hard = 'hard'
-}
-
-export enum Categories {
-  ArtsLiterature = 'Arts & Literature',
-  FilmTV = 'Film & TV',
-  FoodDrink = 'Food & Drink',
-  GeneralKnowledge = 'General Knowledge',
-  Geography = 'Geography',
-  History = 'History',
-  Music = 'Music',
-  Science = 'Science',
-  SocietyCulture = 'Society & Culture',
-  SportLeisure = 'Sport & Leisure'
-}
+import { Categories } from '../enums/QuizCategory'
+import { Difficulty } from '../enums/QuizDifficulty'
+import { Question } from '../interfaces/QuestionInterface'
 
 const randomDifficulties = (difficulty: string) => {
   const difficulties = ['easy', 'medium', 'hard']
