@@ -7,6 +7,7 @@ export type Props = {
   userAnswer: AnswerProps | undefined
   questionNumber: number
   totalQuestions: number
+  questionCountdown: number
 }
 
 export const QuestionCard = ({
@@ -15,7 +16,8 @@ export const QuestionCard = ({
   callback,
   userAnswer,
   questionNumber: questionNum,
-  totalQuestions
+  totalQuestions,
+  questionCountdown
 }: Props) => {
   return (
     <div>
@@ -32,7 +34,7 @@ export const QuestionCard = ({
                 backgroundColor:
                   userAnswer?.correctAnswer === answer ? 'springgreen' : ''
               }}
-              disabled={!!userAnswer}
+              disabled={!!userAnswer || questionCountdown === 0}
               value={answer}
               onClick={callback}
             >

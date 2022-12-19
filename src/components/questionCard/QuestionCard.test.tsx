@@ -16,6 +16,7 @@ describe('QuestionCard component', () => {
         userAnswer={undefined}
         questionNumber={0}
         totalQuestions={0}
+        questionCountdown={0}
       />
     )
 

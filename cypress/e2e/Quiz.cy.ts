@@ -9,7 +9,6 @@ describe('One round of a quiz game', () => {
     cy.get('button').should('contain', 'Start Quiz')
     cy.get('[data-testid=start-quiz]').click()
 
-    cy.get('p').should('contain', 'Score: 0')
     cy.get('p').should('contain', 'Question: 1 / 9')
     cy.get('[data-testid=answer-button]').click({ multiple: true, force: true })
     cy.get('[data-testid=next-question]').click()

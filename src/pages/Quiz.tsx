@@ -187,7 +187,6 @@ export const Quiz = () => {
             </button>
           ) : null}
 
-          {!gameOver ? <p>Score: {score}</p> : null}
           {loading && <p>Trying to fetch data...</p>}
           {!loading && !gameOver && (
             <QuestionCard
@@ -197,13 +196,15 @@ export const Quiz = () => {
               answers={questions[0].answers}
               userAnswer={userAnswers ? userAnswers[number] : undefined}
               callback={checkAnswer}
+              questionCountdown={questionCountdown}
             />
           )}
 
-          {!gameOver &&
-          !loading &&
-          userAnswers.length === number + 1 &&
-          number !== TOTAL_QUESTIONS - 1 ? (
+          {(!gameOver &&
+            !loading &&
+            userAnswers.length === number + 1 &&
+            number !== TOTAL_QUESTIONS - 1) ||
+          questionCountdown === 0 ? (
             <button
               data-testid='next-question'
               onClick={() => {
