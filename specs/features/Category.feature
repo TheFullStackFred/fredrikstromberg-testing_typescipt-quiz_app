@@ -1,6 +1,6 @@
 Feature: Category
 
   Scenario: Pick a category
-    Given category: history
+    Given category: History
     When Picking a category
-    Then The picked category should be: history
+    Then The picked category should be: History

@@ -1,6 +1,6 @@
 Feature: Difficulty
 
   Scenario: Pick a difficulty
-    Given difficulty: easy
+    Given difficulty: Hard
     When Picking a difficulty
-    Then The picked difficulty should be: easy
+    Then The picked difficulty should be: Hard

@@ -4,6 +4,8 @@ const feature = loadFeature('./specs/features/Category.feature')
 
 export const getCategory = (category: string): Categories => {
   let value = (<any>Categories)[category] as Categories
+  if (value === undefined) throw new Error('Category not found')
+
   return value
 }
 
@@ -21,7 +23,6 @@ defineFeature(feature, (test) => {
 
     then(/^The picked category should be: ([a-zA-Z]+)$/, (expected) => {
       let result = getCategory(expected)
-      console.log(result, pickedCategory)
       expect(pickedCategory).toBe(result)
     })
   })
