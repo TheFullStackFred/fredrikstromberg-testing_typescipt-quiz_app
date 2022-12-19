@@ -205,6 +205,7 @@ export const Quiz = () => {
           userAnswers.length === number + 1 &&
           number !== TOTAL_QUESTIONS - 1 ? (
             <button
+              data-testid='next-question'
               onClick={() => {
                 nextQuestion()
               }}
