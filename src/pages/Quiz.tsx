@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
@@ -34,6 +35,8 @@ export const Quiz = () => {
   const [questionTime, setQuestionTime] = useState<boolean>(false)
   const [questionCountdown, setQuestionCountdown] =
     useState<number>(QUESTION_COUNTDOWN)
+
+  const navigate = useNavigate()
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
@@ -134,6 +137,8 @@ export const Quiz = () => {
     }
   }
 
+  const playAgain = () => navigate('/')
+
   return (
     <div className='container'>
       {delayTime ? (
@@ -176,8 +181,9 @@ export const Quiz = () => {
             </>
           )}
 
-          {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+          {gameOver && (
             <button
+              disabled={!category}
               data-testid='start-quiz'
               onClick={() => {
                 startQuiz()
@@ -185,7 +191,7 @@ export const Quiz = () => {
             >
               Start Quiz
             </button>
-          ) : null}
+          )}
 
           {loading && <p>Trying to fetch data...</p>}
           {!loading && !gameOver && (
@@ -206,6 +212,7 @@ export const Quiz = () => {
             number !== TOTAL_QUESTIONS - 1) ||
           questionCountdown === 0 ? (
             <button
+              disabled={!category}
               data-testid='next-question'
               onClick={() => {
                 nextQuestion()
@@ -214,6 +221,10 @@ export const Quiz = () => {
               Next Question
             </button>
           ) : null}
+          {gameOver ||
+            (userAnswers.length === TOTAL_QUESTIONS && (
+              <button onClick={playAgain}>Play Again</button>
+            ))}
         </>
       )}
     </div>
