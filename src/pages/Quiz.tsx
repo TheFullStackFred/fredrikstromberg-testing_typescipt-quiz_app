@@ -145,7 +145,7 @@ export const Quiz = () => {
         <h3>{delayCountDown} </h3>
       ) : (
         <>
-          <h1>Welcome {userName}</h1>
+          {gameOver && <h1>Welcome {userName}</h1>}
 
           {!difficulty && (
             <>
@@ -163,8 +163,6 @@ export const Quiz = () => {
             </>
           )}
 
-          {!gameOver && <h3>Time left: {questionCountdown}</h3>}
-
           {!category && (
             <>
               <p>Select Category</p>
@@ -180,6 +178,8 @@ export const Quiz = () => {
               </select>
             </>
           )}
+
+          {!gameOver && <h3>Time left: {questionCountdown}</h3>}
 
           {gameOver && (
             <button

@@ -17,6 +17,10 @@ button {
   margin: 5px 0px;
 }
 
+p {
+  margin: 10px 0px;
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
