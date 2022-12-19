@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import Context from '../context/Context'
-import { QuestionCard } from '../components/questionCard/QuestionCard'
+import { QuestionCard } from '../components/QuestionCard/QuestionCard'
 import { fetchQuestions, QuestionsState } from '../services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
 import {
@@ -34,6 +34,7 @@ export const Quiz = () => {
   const [questionTime, setQuestionTime] = useState<boolean>(false)
   const [questionCountdown, setQuestionCountdown] =
     useState<number>(QUESTION_COUNTDOWN)
+
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
 
   const { userName } = useContext(Context)
@@ -139,13 +140,15 @@ export const Quiz = () => {
         <h3>{delayCountDown} </h3>
       ) : (
         <>
-          {!gameOver ? <p>Score: {score}</p> : null}
           <h1>Welcome {userName}</h1>
 
           {!difficulty && (
             <>
               <p>Select Difficulty</p>
-              <select onChange={(e) => setDifficulty(e.target.value)}>
+              <select
+                data-testid='select-difficulty'
+                onChange={(e) => setDifficulty(e.target.value)}
+              >
                 {difficultiesOptions.map((options, index) => (
                   <option value={options.backendName} key={index}>
                     {options.displayName}
@@ -160,7 +163,10 @@ export const Quiz = () => {
           {!category && (
             <>
               <p>Select Category</p>
-              <select onChange={(e) => setCategory(e.target.value)}>
+              <select
+                data-testid='select-category'
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 {shuffledCategories.slice(0, 3).map((options, index) => (
                   <option value={options.backendName} key={index}>
                     {options.displayName}
@@ -172,6 +178,7 @@ export const Quiz = () => {
 
           {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
             <button
+              data-testid='start-quiz'
               onClick={() => {
                 startQuiz()
               }}

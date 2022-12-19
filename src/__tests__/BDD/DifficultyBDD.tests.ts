@@ -16,13 +16,13 @@ defineFeature(feature, (test) => {
       pickedDifficulty = getDifficulty(difficulty)
     })
 
-    when('Picking a difficulty', () => {
-      // getResult = getCategory(category);
+    when('Check if the difficulty is correct', () => {
+      if (pickedDifficulty !== Difficulties.Hard)
+        throw new Error('Difficulty not found')
     })
 
     then(/^The picked difficulty should be: ([a-zA-Z]+)$/, (expected) => {
-      let result = getDifficulty(expected)
-      expect(pickedDifficulty).toBe(result)
+      expect(pickedDifficulty).toBe(expected)
     })
   })
 })

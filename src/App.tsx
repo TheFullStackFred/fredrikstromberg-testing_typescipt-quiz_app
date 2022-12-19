@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Router } from './components/Router'
 import Context from './context/Context'
-import { Greeting } from './components/greeting/Greeting'
+import { Greeting } from './components/Greeting/Greeting'
 import './App.css'
 
 export const App = () => {

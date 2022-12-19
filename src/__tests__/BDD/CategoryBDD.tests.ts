@@ -17,13 +17,13 @@ defineFeature(feature, (test) => {
       pickedCategory = getCategory(category)
     })
 
-    when('Picking a category', () => {
-      // getResult = getCategory(category);
+    when('Check if the category is correct', () => {
+      if (pickedCategory !== Categories.History)
+        throw new Error('Category not found')
     })
 
     then(/^The picked category should be: ([a-zA-Z]+)$/, (expected) => {
-      let result = getCategory(expected)
-      expect(pickedCategory).toBe(result)
+      expect(pickedCategory).toBe(expected)
     })
   })
 })

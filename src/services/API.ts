@@ -3,7 +3,7 @@ import { Categories } from '../enums/QuizCategory'
 import { Difficulties } from '../enums/QuizDifficulty'
 import { Question } from '../interfaces/QuestionInterface'
 
-const randomDifficulties = (difficulty: string) => {
+export const randomDifficulties = (difficulty: string) => {
   const difficulties = ['easy', 'medium', 'hard']
   if (difficulty === 'random') {
     return difficulties[Math.floor(Math.random() * difficulties.length)]
