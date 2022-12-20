@@ -1,6 +1,36 @@
-# Getting Started with Create React App
+# Testing & Typescript Quiz App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# How to run the app
+
+- Clone the repo
+- Run `npm install` to install the dependencies
+- Run `npm start` to start the app
+- Enter your name if you want, this is optional.
+- Select the difficulty level if you want this is optional.
+- Select the category.
+- Click on the start quiz button.
+- Answer the question.
+- Click on the next question button to go to the next question.
+- After you answered the last question, you will see the total score.
+
+# Diagrams
+
+-Diagrams can be found in the diagrams folder src/diagrams.
+
+# Testing
+
+- Unit tests.
+- BDD tests.
+
+# Test strategy
+
+- TDD
+- React testing library
+- Component tests
+- Cypress
+- Jest
+
+# Design principles
 
 ## Available Scripts
 

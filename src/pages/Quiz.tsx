@@ -26,7 +26,6 @@ export const Quiz = () => {
   const [questions, setQuestions] = useState<QuestionsState[]>([])
   const [number, setNumber] = useState<number>(0)
   const [userAnswers, setUserAnswers] = useState<AnswerProps[]>([])
-  const [score, setScore] = useState<number>(0)
   const [gameOver, setGameOver] = useState(true)
   const [difficulty, setDifficulty] = useState<string>('')
   const [category, setCategory] = useState<string>('')
@@ -87,7 +86,6 @@ export const Quiz = () => {
     )
 
     setQuestions(newQuestions)
-    setScore(0)
     setUserAnswers([])
     setLoading(false)
   }
@@ -101,7 +99,6 @@ export const Quiz = () => {
       setQuestionTime(false)
 
       if (correct) {
-        setScore((prev) => prev + 1)
         setCategory('')
       }
 
@@ -173,6 +170,10 @@ export const Quiz = () => {
 
   return (
     <div className='container'>
+      {userAnswers.length === TOTAL_QUESTIONS && (
+        <h1>Your total score: {totalScore}</h1>
+      )}
+
       {delayTime ? (
         <h3>{delayCountDown} </h3>
       ) : (
