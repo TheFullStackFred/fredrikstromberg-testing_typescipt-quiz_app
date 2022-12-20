@@ -139,6 +139,37 @@ export const Quiz = () => {
 
   const playAgain = () => navigate('/')
 
+  useEffect(() => {
+    calculateScore()
+  }, [userAnswers])
+
+  const calculateScore = () => {
+    // Sekunder som är kvar * svårighetsgrad (1 = easy, 3 = medium 5 = hard) + antal gissade rätt * antal gissade I följd om man har minst 3 rätt I följd.
+
+    const difficultyPoints = DIFFICULTY_POINTS[difficulty]
+    const correctGuesses = userAnswers.filter((answer) => answer.correct).length
+
+    userAnswers.map((answer) => {
+      console.log('useranswer', answer.correct)
+
+      if (answer.correct) {
+        const consecutiveGuesses = correctGuesses
+        const scores =
+          questionCountdown * difficultyPoints +
+          correctGuesses * consecutiveGuesses
+        console.log('Countdown', questionCountdown)
+        console.log('Difficulty', difficultyPoints)
+        console.log('Correct Guesses', correctGuesses)
+        console.log('In a row', consecutiveGuesses)
+        console.log('Total score', scores)
+
+        return scores
+      } else {
+        return 0
+      }
+    })
+  }
+
   return (
     <div className='container'>
       {delayTime ? (

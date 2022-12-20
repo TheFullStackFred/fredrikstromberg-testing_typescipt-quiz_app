@@ -1,4 +1,4 @@
-import { shuffleArray } from '../utilities/utils'
+import { shuffleArray } from '../utilities/shuffleArray'
 import { Categories } from '../enums/QuizCategory'
 import { Difficulties } from '../enums/QuizDifficulty'
 import { Question } from '../interfaces/QuestionInterface'
