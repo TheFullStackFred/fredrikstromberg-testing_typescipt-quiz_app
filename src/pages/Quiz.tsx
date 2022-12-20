@@ -35,7 +35,7 @@ export const Quiz = () => {
   const [questionTime, setQuestionTime] = useState<boolean>(false)
   const [questionCountdown, setQuestionCountdown] =
     useState<number>(QUESTION_COUNTDOWN)
-
+  const [totalScore, setTotalScore] = useState<number>(0)
   const navigate = useNavigate()
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
@@ -144,24 +144,25 @@ export const Quiz = () => {
   }, [userAnswers])
 
   const calculateScore = () => {
-    // Sekunder som är kvar * svårighetsgrad (1 = easy, 3 = medium 5 = hard) + antal gissade rätt * antal gissade I följd om man har minst 3 rätt I följd.
-
     const difficultyPoints = DIFFICULTY_POINTS[difficulty]
     const correctGuesses = userAnswers.filter((answer) => answer.correct).length
+    const consecutiveGuesses = userAnswers.reduce((acc, answer) => {
+      if (answer.correct) {
+        return acc + 1
+      } else {
+        return 0
+      }
+    }, 0)
 
     userAnswers.map((answer) => {
-      console.log('useranswer', answer.correct)
-
       if (answer.correct) {
-        const consecutiveGuesses = correctGuesses
         const scores =
-          questionCountdown * difficultyPoints +
-          correctGuesses * consecutiveGuesses
-        console.log('Countdown', questionCountdown)
-        console.log('Difficulty', difficultyPoints)
-        console.log('Correct Guesses', correctGuesses)
-        console.log('In a row', consecutiveGuesses)
-        console.log('Total score', scores)
+          consecutiveGuesses > 2
+            ? consecutiveGuesses * correctGuesses +
+              questionCountdown * difficultyPoints
+            : questionCountdown * difficultyPoints
+
+        setTotalScore(totalScore + scores)
 
         return scores
       } else {
