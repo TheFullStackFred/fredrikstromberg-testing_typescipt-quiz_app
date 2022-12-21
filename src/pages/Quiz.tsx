@@ -28,7 +28,7 @@ export const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerProps[]>([])
   const [gameOver, setGameOver] = useState(true)
   const [difficulty, setDifficulty] = useState<string>('')
-  const [category, setCategory] = useState<string>('')
+  const [category, setCategory] = useState<string | Boolean>('')
   const [delayTime, setDelayTime] = useState<boolean>(false)
   const [delayCountDown, setDelayCountdown] = useState<number>(3)
   const [questionTime, setQuestionTime] = useState<boolean>(false)
@@ -102,6 +102,10 @@ export const Quiz = () => {
         setCategory('')
       }
 
+      if (gameOver) {
+        setCategory(true)
+      }
+
       const answerObject = {
         question: questions[0].question,
         answer,
@@ -171,7 +175,10 @@ export const Quiz = () => {
   return (
     <div className='container'>
       {userAnswers.length === TOTAL_QUESTIONS && (
-        <h1>Your total score: {totalScore}</h1>
+        <>
+          <h1>End of quiz</h1>
+          <h2>Your total score: {totalScore}</h2>
+        </>
       )}
 
       {delayTime ? (
@@ -182,11 +189,11 @@ export const Quiz = () => {
 
           {!difficulty && (
             <>
-              <p>Select Difficulty</p>
               <select
                 data-testid='select-difficulty'
                 onChange={(e) => setDifficulty(e.target.value)}
               >
+                <option>Select difficulty</option>
                 {difficultiesOptions.map((options, index) => (
                   <option value={options.backendName} key={index}>
                     {options.displayName}
@@ -198,11 +205,11 @@ export const Quiz = () => {
 
           {!category && (
             <>
-              <p>Select Category</p>
               <select
                 data-testid='select-category'
                 onChange={(e) => setCategory(e.target.value)}
               >
+                <option>Select Category</option>
                 {shuffledCategories.slice(0, 3).map((options, index) => (
                   <option value={options.backendName} key={index}>
                     {options.displayName}

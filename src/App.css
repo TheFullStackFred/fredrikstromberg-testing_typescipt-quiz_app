@@ -21,6 +21,12 @@ p {
   margin: 10px 0px;
 }
 
+select {
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 5px 0px;
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
