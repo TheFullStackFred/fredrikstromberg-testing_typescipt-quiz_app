@@ -12,6 +12,7 @@ import {
 } from '../config'
 import { Categories } from '../enums/QuizCategory'
 import { Difficulties } from '../enums/QuizDifficulty'
+import { calculateScore } from '../utilities/calculateScore'
 
 export type AnswerProps = {
   question: string
@@ -34,7 +35,7 @@ export const Quiz = () => {
   const [questionTime, setQuestionTime] = useState<boolean>(false)
   const [questionCountdown, setQuestionCountdown] =
     useState<number>(QUESTION_COUNTDOWN)
-  const [totalScore, setTotalScore] = useState<number>(0)
+  const [totalScore, setTotalScore] = useState<number | any>(0)
   const navigate = useNavigate()
 
   const shuffledCategories = categoriesOptions.sort(() => Math.random() - 0.5)
@@ -97,6 +98,10 @@ export const Quiz = () => {
       const correct = questions[0].correctAnswer === answer
 
       setQuestionTime(false)
+      setTotalScore(
+        (prev: number) =>
+          prev + calculateScore(difficulty, userAnswers, questionCountdown)
+      )
 
       if (correct) {
         setCategory('')
@@ -139,38 +144,6 @@ export const Quiz = () => {
   }
 
   const playAgain = () => navigate('/')
-
-  useEffect(() => {
-    calculateScore()
-  }, [userAnswers])
-
-  const calculateScore = () => {
-    const difficultyPoints = DIFFICULTY_POINTS[difficulty]
-    const correctGuesses = userAnswers.filter((answer) => answer.correct).length
-    const consecutiveGuesses = userAnswers.reduce((acc, answer) => {
-      if (answer.correct) {
-        return acc + 1
-      } else {
-        return 0
-      }
-    }, 0)
-
-    userAnswers.map((answer) => {
-      if (answer.correct) {
-        const scores =
-          consecutiveGuesses > 2
-            ? consecutiveGuesses * correctGuesses +
-              questionCountdown * difficultyPoints
-            : questionCountdown * difficultyPoints
-
-        setTotalScore(totalScore + scores)
-
-        return scores
-      } else {
-        return 0
-      }
-    })
-  }
 
   return (
     <div className='container'>
