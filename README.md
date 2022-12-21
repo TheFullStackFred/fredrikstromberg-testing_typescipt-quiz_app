@@ -2,7 +2,7 @@
 
 # How to run the app
 
-- Clone the repo
+- Clone the repo: git clone https://github.com/TheFullStackFred/fredrikstromberg-testing_typescipt-quiz_app.git
 - Run `npm install` to install the dependencies
 - Run `npm start` to start the app
 - Enter your name if you want, this is optional.
@@ -11,7 +11,7 @@
 - Click on the start quiz button.
 - Answer the question.
 - Click on the next question button to go to the next question.
-- After you answered the last question, you will see the total score.
+- After you answered the last question, you will see your total score.
 
 # Diagrams
 
