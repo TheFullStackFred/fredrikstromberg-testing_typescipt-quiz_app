@@ -24,12 +24,11 @@ export const QuestionCard = ({
       <p>
         Question: {questionNum} / {totalQuestions}
       </p>
-      <p>{question}</p>
+      <p data-testid='question'>{question}</p>
       <div>
         {answers?.map((answer) => (
           <div key={answer}>
             <button
-              data-testid='answer-button'
               style={{
                 backgroundColor:
                   userAnswer?.correctAnswer === answer ? 'springgreen' : ''
