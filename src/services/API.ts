@@ -22,7 +22,6 @@ export const fetchQuestions = async (
   )}
   `
   const data = await (await fetch(url)).json()
-  console.log(data)
 
   return data.map((question: Question) => ({
     ...question,
