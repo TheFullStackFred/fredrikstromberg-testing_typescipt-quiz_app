@@ -2,14 +2,18 @@
 
 # How to run the app
 
-- Clone the repo: git clone https://github.com/TheFullStackFred/fredrikstromberg-testing_typescipt-quiz_app.git
-- Run `npm install` to install the dependencies
-- Run `npm start` to start the app
+- Run `git clone https://github.com/TheFullStackFred/fredrikstromberg-testing_typescipt-quiz_app.git` to clone the repo.
+- Run `npm install` to install the dependencies.
+- Run `npm start` to start the app.
+
+# How to play the quiz
+
 - Enter your name if you want, this is optional.
 - Select the difficulty level if you want this is optional.
 - Select the category.
 - Click on the start quiz button.
 - Answer the question.
+- If you answer correct you will need to select a new category.
 - Click on the next question button to go to the next question.
 - After you answered the last question, you will see your total score.
 
