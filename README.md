@@ -21,8 +21,9 @@
 
 -Diagrams can be found in the diagrams folder src/diagrams.
 
-# Testing
+# Tests
 
+- End-2-End tests.
 - Unit tests.
 - BDD tests.
 
@@ -30,11 +31,14 @@
 
 - TDD
 - React testing library
-- Component tests
 - Cypress
 - Jest
 
 # Design principles
+
+- DRY
+- YAGNI
+- KISS
 
 ## Available Scripts
 
