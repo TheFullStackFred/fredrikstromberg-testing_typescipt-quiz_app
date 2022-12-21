@@ -191,9 +191,8 @@ export const Quiz = () => {
 
           {!gameOver && <h3>Time left: {questionCountdown}</h3>}
 
-          {gameOver && (
+          {gameOver && category && (
             <button
-              disabled={!category}
               data-testid='start-quiz'
               onClick={() => {
                 startQuiz()

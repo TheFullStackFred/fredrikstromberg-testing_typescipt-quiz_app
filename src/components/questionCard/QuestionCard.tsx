@@ -1,5 +1,9 @@
 import { AnswerProps } from '../../pages/Quiz'
 
+// NUMMER 16 30,kebabsås
+//BAGAREN + POMMES + KEBABSÅS
+// 0303-36 60 60
+
 export type Props = {
   question: string
   answers: string[]
@@ -29,6 +33,7 @@ export const QuestionCard = ({
         {answers?.map((answer) => (
           <div key={answer}>
             <button
+              data-testid='answer-button'
               style={{
                 backgroundColor:
                   userAnswer?.correctAnswer === answer ? 'springgreen' : ''
