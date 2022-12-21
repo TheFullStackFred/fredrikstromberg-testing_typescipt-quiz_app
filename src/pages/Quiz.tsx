@@ -5,11 +5,7 @@ import Context from '../context/Context'
 import { QuestionCard } from '../components/QuestionCard/QuestionCard'
 import { fetchQuestions, QuestionsState } from '../services/API'
 import { difficultiesOptions, categoriesOptions } from '../constants/constants'
-import {
-  QUESTION_COUNTDOWN,
-  TOTAL_QUESTIONS,
-  DIFFICULTY_POINTS
-} from '../config'
+import { QUESTION_COUNTDOWN, TOTAL_QUESTIONS } from '../config'
 import { Categories } from '../enums/QuizCategory'
 import { Difficulties } from '../enums/QuizDifficulty'
 import { calculateScore } from '../utilities/calculateScore'
@@ -98,6 +94,7 @@ export const Quiz = () => {
       const correct = questions[0].correctAnswer === answer
 
       setQuestionTime(false)
+
       setTotalScore(
         (prev: number) =>
           prev + calculateScore(difficulty, userAnswers, questionCountdown)
@@ -234,6 +231,7 @@ export const Quiz = () => {
               Next Question
             </button>
           ) : null}
+
           {gameOver ||
             (userAnswers.length === TOTAL_QUESTIONS && (
               <button onClick={playAgain}>Play Again</button>

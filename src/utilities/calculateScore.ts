@@ -7,6 +7,7 @@ export const calculateScore = (
   questionCountdown: number
 ) => {
   let totalScore = 0
+
   const difficultyPoints = DIFFICULTY_POINTS[difficulty]
   const correctGuesses = userAnswers.filter((answer) => answer.correct).length
   const consecutiveGuesses = userAnswers.reduce((acc, answer) => {
@@ -24,6 +25,7 @@ export const calculateScore = (
           ? consecutiveGuesses * correctGuesses +
             questionCountdown * difficultyPoints
           : questionCountdown * difficultyPoints
+
       totalScore = scores
     } else {
       return 0
